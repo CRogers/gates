@@ -1,0 +1,23 @@
+{
+  "name": "baconsnake",
+  "description": "A Bacon.js based coding exercise to learn FRP by building snake",
+  "keywords": ["bacon", "baconjs", "frp", "playground"],
+  "homepage": "https://github.com/CRogers/baconsnake",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CRogers/baconsnake"
+  },
+  "main" : "./build/baconsnake",
+  "author": "Callum Rogers",
+  "contributors": [
+    {
+      "name": "Callum Rogers"
+    }
+  ],
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-typescript": "*",
+    "coffee-script": "*"
+  },
+  "version": "0.1.0"
+}
