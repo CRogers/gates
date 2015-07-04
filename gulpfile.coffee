@@ -5,6 +5,7 @@ jade = require('gulp-jade')
 plumber = require('gulp-plumber')
 browserSync = require('browser-sync')
 del = require('del')
+shell = require('gulp-shell')
 
 paths =
   ts: 'src/scripts/*.ts'
@@ -20,7 +21,7 @@ gulp.task 'ts', ->
     )
   return tsResult.js.pipe(gulp.dest('build/'))
 
-gulp.task 'test', ->
+gulp.task 'test-ts', ->
   tsResult = gulp.src(paths.test)
   .pipe(ts
       noImplicitAny: true,
@@ -28,6 +29,10 @@ gulp.task 'test', ->
       module: 'amd'
   )
   return tsResult.js.pipe(gulp.dest('build/'))
+
+gulp.task 'intern', ['test-ts'], shell.task([
+  './node_modules/.bin/intern-runner config=src/test/intern.js'
+])
 
 gulp.task 'sass', ->
   gulp.src paths.sass
@@ -48,6 +53,7 @@ gulp.task 'watch', ->
   gulp.watch paths.ts, ['ts']
   gulp.watch paths.sass, ['sass']
   gulp.watch paths.jade, ['jade', browserSync.reload]
+  gulp.watch paths.test, ['intern']
 
 gulp.task 'serve', ['build', 'watch'], ->
   browserSync
