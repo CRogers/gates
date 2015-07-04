@@ -6,10 +6,12 @@ plumber = require('gulp-plumber')
 browserSync = require('browser-sync')
 del = require('del')
 shell = require('gulp-shell')
+typescript = require('typescript')
 
 paths =
   ts: 'src/scripts/*.ts'
   tests: './src/tests/**/*.ts'
+  unitTests: './src/tests/unit/*.ts'
   sass: 'src/sass/*.sass'
   jade: 'src/jade/*.jade'
 
@@ -18,6 +20,7 @@ gulp.task 'ts', ->
     .pipe(ts
       noImplicitAny: true,
       out: 'gates.js'
+      typescript: typescript
     )
   return tsResult.js.pipe(gulp.dest('build/'))
 
@@ -27,11 +30,16 @@ gulp.task 'test-ts', ->
       noImplicitAny: true,
       outDir: 'test'
       module: 'amd'
+      typescript: typescript
   )
   return tsResult.js.pipe(gulp.dest('build/tests/'))
 
-gulp.task 'intern', ['test-ts'], shell.task([
-  './node_modules/.bin/intern-runner config=intern-config/intern.js'
+gulp.task 'test', ['test-ts'], shell.task([
+  './node_modules/.bin/intern-client config=intern-config/intern.js'
+])
+
+gulp.task 'ete', ['test-ts'], shell.task([
+  './node_modules/.bin/intern-client config=intern-config/intern.js'
 ])
 
 gulp.task 'sass', ->
@@ -53,7 +61,7 @@ gulp.task 'watch', ->
   gulp.watch paths.ts, ['ts']
   gulp.watch paths.sass, ['sass']
   gulp.watch paths.jade, ['jade', browserSync.reload]
-  gulp.watch paths.tests, ['intern']
+  gulp.watch paths.unitTests, ['test']
 
 gulp.task 'serve', ['build', 'watch'], ->
   browserSync

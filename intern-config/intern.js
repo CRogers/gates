@@ -6,10 +6,18 @@ define({
     ]
   },
 
+  suites: [
+    'build/tests/unit/blah'
+  ],
+
   environments: [
     { browserName: 'chrome' }
   ],
 
-  functionalSuites: [ 'build/tests/functional/test' ]
+  functionalSuites: [ 'build/tests/functional/test' ],
+
+  reporters: [ 'console' ],
+
+  excludeInstrumentation: /./
 });
 
