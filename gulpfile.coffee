@@ -1,6 +1,7 @@
 gulp = require('gulp')
 ts = require('gulp-typescript')
 sass = require('gulp-sass')
+jade = require('gulp-jade')
 plumber = require('gulp-plumber')
 browserSync = require('browser-sync')
 
@@ -18,3 +19,9 @@ gulp.task 'sass', ->
     .pipe(sass(indentedSyntax: true))
     .pipe(gulp.dest('./build/css/'))
     .pipe(browserSync.reload(stream: true))
+
+gulp.task 'jade', ->
+  gulp.src 'src/jade/*.jade'
+    .pipe(plumber())
+    .pipe(jade())
+    .pipe(gulp.dest('./build/'))

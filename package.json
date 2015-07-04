@@ -18,6 +18,7 @@
     "gulp": "*",
     "gulp-typescript": "*",
     "gulp-sass": "*",
+    "gulp-jade": "*",
     "gulp-plumber": "*",
     "browser-sync": "*",
     "coffee-script": "*"
