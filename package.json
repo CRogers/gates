@@ -17,6 +17,9 @@
   "devDependencies": {
     "gulp": "*",
     "gulp-typescript": "*",
+    "gulp-sass": "*",
+    "gulp-plumber": "*",
+    "browser-sync": "*",
     "coffee-script": "*"
   },
   "version": "0.1.0"
