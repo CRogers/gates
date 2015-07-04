@@ -38,8 +38,8 @@ gulp.task 'test', ['test-ts'], shell.task([
   './node_modules/.bin/intern-client config=intern-config/intern.js'
 ])
 
-gulp.task 'ete', ['test-ts'], shell.task([
-  './node_modules/.bin/intern-client config=intern-config/intern.js'
+gulp.task 'ete', ['build', 'test-ts'], shell.task([
+  './node_modules/.bin/intern-runner config=intern-config/intern.js'
 ])
 
 gulp.task 'sass', ->
