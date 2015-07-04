@@ -14,6 +14,9 @@
       "name": "Callum Rogers"
     }
   ],
+  "dependencies": {
+    "requirejs": "*"
+  },
   "devDependencies": {
     "gulp": "*",
     "gulp-typescript": "*",
@@ -21,7 +24,9 @@
     "gulp-jade": "*",
     "gulp-plumber": "*",
     "browser-sync": "*",
-    "coffee-script": "*"
+    "coffee-script": "*",
+    "intern": "*",
+    "del": "*"
   },
   "version": "0.1.0"
 }

@@ -4,9 +4,11 @@ sass = require('gulp-sass')
 jade = require('gulp-jade')
 plumber = require('gulp-plumber')
 browserSync = require('browser-sync')
+del = require('del')
 
 paths =
-  ts: 'src/**/*.ts'
+  ts: 'src/scripts/*.ts'
+  test: './src/test/*.ts'
   sass: 'src/sass/*.sass'
   jade: 'src/jade/*.jade'
 
@@ -16,7 +18,16 @@ gulp.task 'ts', ->
       noImplicitAny: true,
       out: 'gates.js'
     )
-  return tsResult.js.pipe(gulp.dest('build'))
+  return tsResult.js.pipe(gulp.dest('build/'))
+
+gulp.task 'test', ->
+  tsResult = gulp.src(paths.test)
+  .pipe(ts
+      noImplicitAny: true,
+      outDir: 'test'
+      module: 'amd'
+  )
+  return tsResult.js.pipe(gulp.dest('build/'))
 
 gulp.task 'sass', ->
   gulp.src paths.sass
@@ -41,3 +52,6 @@ gulp.task 'watch', ->
 gulp.task 'serve', ['build', 'watch'], ->
   browserSync
     server: {baseDir: 'build'}
+
+gulp.task 'clean', ->
+  del(['build/*'])
