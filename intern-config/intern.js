@@ -10,6 +10,6 @@ define({
     { browserName: 'chrome' }
   ],
 
-  functionalSuites: [ 'build/test' ]
+  functionalSuites: [ 'build/tests/functional/test' ]
 });
 

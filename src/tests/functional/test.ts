@@ -1,4 +1,4 @@
-/// <reference path="../typings/intern/intern/intern.d.ts" />
+/// <reference path="../../typings/intern/intern/intern.d.ts" />
 
 import registerSuite = require('intern!object')
 
@@ -9,6 +9,5 @@ registerSuite({
             .get('http://google.com')
             .findByName('btnI')
             .click()
-            .sleep(3000)
     }
 });

@@ -9,7 +9,7 @@ shell = require('gulp-shell')
 
 paths =
   ts: 'src/scripts/*.ts'
-  test: './src/test/*.ts'
+  tests: './src/tests/**/*.ts'
   sass: 'src/sass/*.sass'
   jade: 'src/jade/*.jade'
 
@@ -22,16 +22,16 @@ gulp.task 'ts', ->
   return tsResult.js.pipe(gulp.dest('build/'))
 
 gulp.task 'test-ts', ->
-  tsResult = gulp.src(paths.test)
+  tsResult = gulp.src(paths.tests)
   .pipe(ts
       noImplicitAny: true,
       outDir: 'test'
       module: 'amd'
   )
-  return tsResult.js.pipe(gulp.dest('build/'))
+  return tsResult.js.pipe(gulp.dest('build/tests/'))
 
 gulp.task 'intern', ['test-ts'], shell.task([
-  './node_modules/.bin/intern-runner config=src/test/intern.js'
+  './node_modules/.bin/intern-runner config=intern-config/intern.js'
 ])
 
 gulp.task 'sass', ->
@@ -53,7 +53,7 @@ gulp.task 'watch', ->
   gulp.watch paths.ts, ['ts']
   gulp.watch paths.sass, ['sass']
   gulp.watch paths.jade, ['jade', browserSync.reload]
-  gulp.watch paths.test, ['intern']
+  gulp.watch paths.tests, ['intern']
 
 gulp.task 'serve', ['build', 'watch'], ->
   browserSync
