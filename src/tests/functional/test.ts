@@ -53,17 +53,10 @@ registerSuite({
         )
     },
     'show the value of a new 1-source to be 1'() {
-        return (<Command<void>>this['remote'])
-            .get(toUrl('../../index.html'))
-            .setFindTimeout(1000)
-            .findById('create-one-source')
-                .click()
-                .end()
-            .findByClassName('one-source')
-                .click()
-                .end()
-            .findById('value')
-                .getVisibleText()
-                .then((text) => expect(text).to.equal('1'))
+        return executeWith(this.remote,
+            createOneSource(),
+            clickOneSource(),
+            expectValueToBe('1')
+        );
     }
 });
