@@ -24,7 +24,7 @@
     "gulp-plumber": "*",
     "browser-sync": "*",
     "coffee-script": "*",
-    "intern": "*",
+    "intern": "beta",
     "del": "*",
     "gulp-shell": "*",
     "typescript": "*",
