@@ -7,28 +7,28 @@ browserSync = require('browser-sync')
 del = require('del')
 shell = require('gulp-shell')
 typescript = require('typescript')
+bowerRequireJS = require('bower-requirejs')
 
 paths =
-  ts: 'src/scripts/*.ts'
+  ts: './src/scripts/*.ts'
   tests: './src/tests/**/*.ts'
   unitTests: './src/tests/unit/*.ts'
-  sass: 'src/sass/*.sass'
-  jade: 'src/jade/*.jade'
+  sass: './src/sass/*.sass'
+  jade: './src/jade/*.jade'
 
 gulp.task 'ts', ->
   tsResult = gulp.src(paths.ts)
     .pipe(ts
       noImplicitAny: true,
-      out: 'gates.js'
+      module: 'amd'
       typescript: typescript
     )
-  return tsResult.js.pipe(gulp.dest('build/'))
+  return tsResult.js.pipe(gulp.dest('build/scripts'))
 
 gulp.task 'test-ts', ->
   tsResult = gulp.src(paths.tests)
   .pipe(ts
       noImplicitAny: true,
-      outDir: 'test'
       module: 'amd'
       typescript: typescript
   )
@@ -69,3 +69,10 @@ gulp.task 'serve', ['build', 'watch'], ->
 
 gulp.task 'clean', ->
   del(['build/*'])
+
+gulp.task 'bower', (done) ->
+  options =
+    baseUrl: 'build'
+    config: 'build/require.config.js'
+
+  bowerRequireJS(options, -> done())

@@ -1,4 +1,8 @@
 html
   head
     link(rel='stylesheet' href='css/gates.css')
+    script(src='scripts/vendor/requirejs/require.js')
+    script(src='require.config.js')
+    script.
+      require(['scripts/gates.js'])
   body Hi!

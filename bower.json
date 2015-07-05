@@ -1,0 +1,23 @@
+{
+  "name": "gates",
+  "version": "0.1.0",
+  "authors": [
+    "Callum Rogers <callumrogers@hotmail.co.uk>"
+  ],
+  "main": "build/scripts/gates.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "*",
+    "jquery": "*"
+  }
+}

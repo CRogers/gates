@@ -27,7 +27,8 @@
     "intern": "*",
     "del": "*",
     "gulp-shell": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "bower-requirejs": "*"
   },
   "version": "0.1.0"
 }

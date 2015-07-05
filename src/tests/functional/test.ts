@@ -5,12 +5,12 @@ import registerSuite = require('intern!object')
 var toUrl = (<any>require).toUrl;
 
 registerSuite({
-    name: 'yay',
-    'foo'() {
+    name: 'Gates should',
+    'create a new 1-source after pressing the create button'() {
         return this.remote
             .get(toUrl('../../index.html'))
-            .sleep(3000)
-            .findByName('btnI')
-            .click()
+            .findById('create-one-source')
+                .click()
+            .findByClassName('one-source');
     }
 });
