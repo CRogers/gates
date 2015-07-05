@@ -11,8 +11,10 @@ $(() => {
     $('body').click((e) => {
         if (e.target != document.body) return;
         $('#value').text('Nothing Selected')
-    })
-    $('#create-not-gate').click(() =>
-        $('body').append('<div class="not-gate"/>')
-    );
+    });
+    $('#create-not-gate').click(() => {
+        const notGate = $('<div class="not-gate"/>');
+        $('body').append(notGate);
+        notGate.click(() => $('#value').text('Inputs aren\'t connected up'))
+    });
 });

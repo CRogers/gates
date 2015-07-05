@@ -61,6 +61,13 @@ function findNotGate(): Action {
         .findByClassName('not-gate')
 }
 
+function clickNotGate(): Action {
+    return withMultiple(
+        findNotGate(),
+        click()
+    )
+}
+
 function withMultiple(...funcs: Action[]): Action {
     return (initialCommand) =>
         funcs.reduce((command, func) => func(command), initialCommand)
@@ -105,6 +112,13 @@ registerSuite({
         return executeWith(this.remote,
             createNotGate(),
             findNotGate()
+        );
+    },
+    'show the value after a not gate has been created as "Inputs aren\'t connected up"'() {
+        return executeWith(this.remote,
+            createNotGate(),
+            clickNotGate(),
+            expectValueToBe('Inputs aren\'t connected up')
         );
     }
 });
