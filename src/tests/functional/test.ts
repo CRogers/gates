@@ -49,6 +49,18 @@ function clickEmptySpace(): Action {
         .end()
 }
 
+function createNotGate(): Action {
+    return (command) => command
+        .findById('create-not-gate')
+        .click()
+        .end();
+}
+
+function findNotGate(): Action {
+    return (command) => command
+        .findByClassName('not-gate')
+}
+
 function withMultiple(...funcs: Action[]): Action {
     return (initialCommand) =>
         funcs.reduce((command, func) => func(command), initialCommand)
@@ -87,6 +99,12 @@ registerSuite({
             clickOneSource(),
             clickEmptySpace(),
             expectValueToBe('Nothing Selected')
+        );
+    },
+    'create a new not gate after pressing the create not gate button'() {
+        return executeWith(this.remote,
+            createNotGate(),
+            findNotGate()
         );
     }
 });

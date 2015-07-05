@@ -1,8 +1,16 @@
 body
   background: lightblue
 
+=size($size)
+  width: $size
+  height: $size
+
 .one-source
   background: greenyellow
   border: solid 1px green
-  width: 25px
-  height: 25px
+  +size(25px)
+
+.not-gate
+  background: lightcoral
+  border: solid 1px purple
+  +size(25px)

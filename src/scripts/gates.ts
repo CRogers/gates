@@ -12,4 +12,7 @@ $(() => {
         if (e.target != document.body) return;
         $('#value').text('Nothing Selected')
     })
+    $('#create-not-gate').click(() =>
+        $('body').append('<div class="not-gate"/>')
+    );
 });
