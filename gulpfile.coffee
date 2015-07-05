@@ -46,12 +46,16 @@ gulp.task 'bower-requirejs', ['bower-install'], (done) ->
   bowerRequireJS(options, -> done())
 
 gulp.task 'test', ['test-ts'], shell.task([
-  './node_modules/.bin/intern-client config=intern-config/intern.js'
+  './node_modules/.bin/intern-client config=intern-config/intern-unit.js'
 ])
 
-gulp.task 'ete', ['build', 'test-ts'], shell.task([
-  './node_modules/.bin/intern-runner config=intern-config/intern.js'
-])
+internWithConfig = (configFile) ->
+  shell.task([
+    "./node_modules/.bin/intern-runner config=intern-config/#{configFile}"
+  ])
+
+gulp.task 'ete', ['build', 'test-ts'], internWithConfig('intern-ete-local.js')
+gulp.task 'ete-remote', ['build', 'test-ts'], internWithConfig('intern-ete-remote.js')
 
 gulp.task 'sass', ->
   gulp.src paths.sass
