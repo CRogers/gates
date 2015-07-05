@@ -30,5 +30,8 @@
     "typescript": "*",
     "bower-requirejs": "*"
   },
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "scripts": {
+    "shrinkwrap": "npm shrinkwrap --dev && node ./tasks/shrinkwrap-remove-resolved.js"
+  }
 }
