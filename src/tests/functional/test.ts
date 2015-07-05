@@ -37,7 +37,7 @@ function expectValueToBe(expectedText: string): Action {
     return (command) => command
         .findById('value')
         .getVisibleText()
-        .then((text) => expect(text).to.equal(expectedText))
+        .then((text: string) => expect(text).to.equal(expectedText))
         .end()
 }
 
