@@ -41,6 +41,13 @@ function expectValueToBe(expectedText: string): Action {
         .end()
 }
 
+function clickEmptySpace(): Action {
+    return (command) => command
+        .findByTagName('body')
+        .click()
+        .end()
+}
+
 function withMultiple(...funcs: Action[]): Action {
     return (initialCommand) =>
         funcs.reduce((command, func) => func(command), initialCommand)
@@ -71,6 +78,14 @@ registerSuite({
             createOneSource(),
             clickOneSource(),
             expectValueToBe('1')
+        );
+    },
+    'show the value after a 1-source has been selected then deselected to be "Nothing Selected'() {
+        return executeWith(this.remote,
+            createOneSource(),
+            clickOneSource(),
+            clickEmptySpace(),
+            expectValueToBe('Nothing Selected')
         );
     }
 });

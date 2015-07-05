@@ -8,4 +8,8 @@ $(() => {
         $('body').append(oneSource);
         oneSource.click(() => $('#value').text('1'))
     });
+    $('body').click((e) => {
+        if (e.target != document.body) return;
+        $('#value').text('Nothing Selected')
+    })
 });
