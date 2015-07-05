@@ -34,6 +34,17 @@ gulp.task 'test-ts', ->
   )
   return tsResult.js.pipe(gulp.dest('build/tests/'))
 
+gulp.task 'bower-install', shell.task([
+  './node_modules/.bin/bower install'
+])
+
+gulp.task 'bower-requirejs', ['bower-install'], (done) ->
+  options =
+    baseUrl: 'build'
+    config: 'build/scripts/require.config.js'
+
+  bowerRequireJS(options, -> done())
+
 gulp.task 'test', ['test-ts'], shell.task([
   './node_modules/.bin/intern-client config=intern-config/intern.js'
 ])
@@ -55,7 +66,7 @@ gulp.task 'jade', ->
     .pipe(jade())
     .pipe(gulp.dest('./build/'))
 
-gulp.task 'build', ['jade', 'sass', 'ts']
+gulp.task 'build', ['jade', 'sass', 'ts', 'bower-requirejs']
 
 gulp.task 'watch', ->
   gulp.watch paths.ts, ['ts']
@@ -69,10 +80,3 @@ gulp.task 'serve', ['build', 'watch'], ->
 
 gulp.task 'clean', ->
   del(['build/*'])
-
-gulp.task 'bower', (done) ->
-  options =
-    baseUrl: 'build'
-    config: 'build/require.config.js'
-
-  bowerRequireJS(options, -> done())

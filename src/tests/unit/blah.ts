@@ -1,3 +1,5 @@
+/// <reference path="../../typings/intern/intern/intern.d.ts" />
+
 import chai = require('intern/chai!')
 import bdd = require('intern!bdd')
 
