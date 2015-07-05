@@ -17,6 +17,13 @@ registerSuite({
                 .end()
             .findByClassName('one-source');
     },
+    'show the value when nothing is selected to be "Nothing Selected"'() {
+        return (<Command<void>>this['remote'])
+            .get(toUrl('../../index.html'))
+            .findById('value')
+                .getVisibleText()
+                .then((text) => expect(text).to.equal('Nothing Selected'))
+    },
     'show the value of a new 1-source to be 1'() {
         return (<Command<void>>this['remote'])
             .get(toUrl('../../index.html'))

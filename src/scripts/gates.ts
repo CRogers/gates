@@ -4,6 +4,8 @@ import $ = require('jquery')
 
 $(() => {
    $('#create-one-source').click(() => {
-      $('body').append('<div class="one-source">')
+      var oneSource = $('<div class="one-source">');
+      $('body').append(oneSource);
+      oneSource.click(() => $('#value').text('1'))
    });
 });
