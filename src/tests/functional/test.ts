@@ -6,22 +6,34 @@ import Command = require('leadfoot/Command')
 
 var toUrl = (<any>require).toUrl;
 
+type Action = (Command) => Command
 
-function createOneSource(): (Command) => Command {
+function click(): Action {
+    return (command) => command
+        .click()
+        .end()
+}
+
+function findOneSource(): Action {
+    return (command) => command
+        .findByClassName('one-source');
+}
+
+function createOneSource(): Action {
     return (command) => command
         .findById('create-one-source')
         .click()
         .end()
 }
 
-function clickOneSource(): (Command) => Command {
-    return (command) => command
-        .findByClassName('one-source')
-        .click()
-        .end()
+function clickOneSource(): Action {
+    return withMultiple(
+        findOneSource(),
+        click()
+    );
 }
 
-function expectValueToBe(expectedText: string): (Command) => Command {
+function expectValueToBe(expectedText: string): Action {
     return (command) => command
         .findById('value')
         .getVisibleText()
@@ -29,23 +41,25 @@ function expectValueToBe(expectedText: string): (Command) => Command {
         .end()
 }
 
-function executeWith(initialCommand: Command, ...funcs: ((Command) => Command)[]): Command {
+function withMultiple(...funcs: Action[]): Action {
+    return (initialCommand) =>
+        funcs.reduce((command, func) => func(command), initialCommand)
+}
+
+function executeWith(initialCommand: Command, ...funcs: Action[]): Action {
     const afterSetup = initialCommand
         .get(toUrl('../../index.html'))
         .setFindTimeout(1000);
-    return funcs.reduce((command, func) => func(command), afterSetup)
+    return withMultiple(...funcs)(afterSetup)
 }
 
 registerSuite({
     name: 'Gates should',
     'create a new 1-source after pressing the create button'() {
-        return (<Command<void>>this['remote'])
-            .get(toUrl('../../index.html'))
-            .setFindTimeout(1000)
-            .findById('create-one-source')
-                .click()
-                .end()
-            .findByClassName('one-source');
+        return executeWith(this.remote,
+            createOneSource(),
+            findOneSource()
+        );
     },
     'show the value when nothing is selected to be "Nothing Selected"'() {
         return executeWith(this.remote,
