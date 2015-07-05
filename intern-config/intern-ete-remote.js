@@ -12,7 +12,7 @@ define({
 
   functionalSuites: [ 'build/tests/functional/test' ],
 
-  reporters: [ 'console' ],
+  reporters: [ 'Pretty' ],
 
   excludeInstrumentation: /./
 });
