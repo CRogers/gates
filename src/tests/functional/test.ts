@@ -6,7 +6,8 @@ import Command = require('leadfoot/Command')
 
 var toUrl = (<any>require).toUrl;
 
-type Action = (Command) => Command
+// Should be generic once we can use generic type parameters
+type Action = (command: Command<any>) => Command<any>;
 
 function click(): Action {
     return (command) => command
@@ -53,7 +54,7 @@ function withMultiple(...funcs: Action[]): Action {
         funcs.reduce((command, func) => func(command), initialCommand)
 }
 
-function executeWith(initialCommand: Command, ...funcs: Action[]): Action {
+function executeWith(initialCommand: Command<any>, ...funcs: Action[]): Command<any> {
     const afterSetup = initialCommand
         .get(toUrl('../../index.html'))
         .setFindTimeout(1000);
