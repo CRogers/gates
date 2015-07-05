@@ -3,5 +3,7 @@
 import $ = require('jquery')
 
 $(() => {
-   console.log('hi');
+   $('#create-one-source').click(() => {
+      $('body').append('<div class="one-source">')
+   });
 });
